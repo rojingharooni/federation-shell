@@ -1,6 +1,9 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+//allow the Shell to use the micro-frontend modules
+import { initFederation } from '@angular-architects/native-federation';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+initFederation({
+  'mfe': 'http://localhost:4200/remoteEntry.json'
+})
+  .catch(err => console.error(err))
+  .then(_ => import('./bootstrap'))
+  .catch(err => console.error(err));
